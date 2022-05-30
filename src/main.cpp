@@ -28,6 +28,8 @@ int main(int argc, char** argv) {
 	// Clean up memory...
 
 	free(&buffer);
+	free(&response_buffer);
+	free(&response_headers);
 
 	return 0;
 }
