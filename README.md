@@ -1,2 +1,2 @@
 # ifsfs
-Incredibly fast static file server
+**I**ncredibly **f**ast **s**tatic **f**ile **s**erver
