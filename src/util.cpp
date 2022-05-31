@@ -12,6 +12,15 @@ bool endswith(string text, string search) {
 	}
 }
 
-/*vector<string> split(string text, string search) {
+vector<string> split(string text, char search) {
 	vector<string> split_text;
-}*/
+	string buffer;
+
+	stringstream streamBuffer(text);
+
+	while (getline(streamBuffer, buffer, search)) {
+		split_text.push_back(buffer);
+	}
+
+	return split_text;
+}

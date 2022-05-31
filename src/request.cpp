@@ -46,9 +46,28 @@ string handle_input(string buffer, std::map<string, string> response_headers) {
 	string response_buffer;
 	string filename;
 
-	if (startswith(buffer, "GET")) {
-		return respond_http(RESPONSE_200, "<h1>Hello, World!</h1>", response_headers);
+	vector<string> lines = split(buffer, '\n');
+
+	if (lines.size() == 0) {
+		return CLOSE_CONNECTION; // Empty request
 	}
 
-	return CLOSE_CONNECTION;
+	vector<string> firstline = split(lines[0], ' ');
+
+	if (firstline.size() != 3) {
+		return CLOSE_CONNECTION; // Not a valid request
+	}
+
+	if (firstline[0] == "GET") {
+		string html = "<head><title>ifsfs!</title></head><body>";
+		html += "<h1>ifsfs is working!</h1>";
+		html += "<p>Route: ";
+		html += firstline[1];
+		html += "</p>";
+		html += "</body>";
+
+		return respond_http(RESPONSE_200, html, response_headers);
+	}
+
+	return CLOSE_CONNECTION; // Unknown/Unhandled method
 }
