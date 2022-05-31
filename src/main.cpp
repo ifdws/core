@@ -9,27 +9,28 @@ int main(int argc, char** argv) {
 	string buffer;
 	string response_buffer;
 
+	int port = 8080;
 	std::map<string, string> response_headers;
 
 	response_headers["Server"] = "ifsfs";
 	response_headers["Content-type"] = get_mime_header(HTML_MIMETYPE, CHARSET_UTF8);
 
-	network_init(8080);
+	network_init(port);
+
+	cout << "Listening at http://localhost:";
+	cout << port;
+	cout << endl;
 
 	for (;;) {
 		accept_connection();
 
-		//getline(cin, buffer);
 		buffer = read_data();
-
 		response_buffer = handle_input(buffer, response_headers);
 
 		if (response_buffer == CLOSE_CONNECTION) {
-			//return -1;
 			close_socket();
 		}
 
-		//cout << response_buffer;
 		send_data(response_buffer);
 
 		close_socket();
