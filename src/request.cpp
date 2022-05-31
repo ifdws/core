@@ -38,9 +38,12 @@ string respond_http(string status_code, string data, std::map<string, string> re
 
 	response_buffer += HTTP_NEWLINE;
 	response_buffer += data;
+	response_buffer += HTTP_NEWLINE;
 
 	return response_buffer;
 }
+
+// Request handler
 
 string handle_input(string buffer, std::map<string, string> response_headers) {
 	string response_buffer;

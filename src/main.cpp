@@ -1,3 +1,4 @@
+#include "network.hpp"
 #include "request.hpp"
 #include <iostream>
 #include <stdio.h>
@@ -13,19 +14,32 @@ int main(int argc, char** argv) {
 	response_headers["Server"] = "ifsfs";
 	response_headers["Content-type"] = get_mime_header(HTML_MIMETYPE, CHARSET_UTF8);
 
+	network_init(8080);
+
 	for (;;) {
-		getline(cin, buffer);
+		accept_connection();
+
+		//getline(cin, buffer);
+		buffer = read_data();
 
 		response_buffer = handle_input(buffer, response_headers);
 
 		if (response_buffer == CLOSE_CONNECTION) {
-			return -1;
+			//return -1;
+			close_socket();
 		}
 
-		cout << response_buffer;
+		//cout << response_buffer;
+		send_data(response_buffer);
+
+		close_socket();
 	}
 
-	// Clean up memory...
+	// Stop server
+
+	close_server();
+
+	// Clean up memory
 
 	free(&buffer);
 	free(&response_buffer);
