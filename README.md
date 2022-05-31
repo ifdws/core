@@ -1,2 +1,2 @@
-# ifsfs
-**I**ncredibly **f**ast **s**tatic **f**ile **s**erver
+# ifdws-core
+ifdws-core is a simple server-side library for HTTP requests.
