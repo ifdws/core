@@ -16,6 +16,10 @@ Request parse_request(string buffer) {
 		return Request {false, "", ""}; // Not a valid request
 	}
 
+	if (!startswith(firstline[1], "/")) {
+		return Request {false, "", ""}; // Not a valid request
+	}
+
 	return Request {true, firstline[0], firstline[1]};
 }
 
